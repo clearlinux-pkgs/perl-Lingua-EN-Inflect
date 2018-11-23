@@ -4,7 +4,7 @@
 #
 Name     : perl-Lingua-EN-Inflect
 Version  : 1.903
-Release  : 2
+Release  : 3
 URL      : https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/Lingua-EN-Inflect-1.903.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/Lingua-EN-Inflect-1.903.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libl/liblingua-en-inflect-perl/liblingua-en-inflect-perl_1.903-1.debian.tar.xz
