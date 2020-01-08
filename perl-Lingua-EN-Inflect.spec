@@ -4,13 +4,14 @@
 #
 Name     : perl-Lingua-EN-Inflect
 Version  : 1.904
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/Lingua-EN-Inflect-1.904.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/Lingua-EN-Inflect-1.904.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libl/liblingua-en-inflect-perl/liblingua-en-inflect-perl_1.903-1.debian.tar.xz
-Summary  : Perl/CPAN Module Lingua::EN::Inflect: Convert singular to plural. Select "a" or "an".
+Summary  : 'Convert singular to plural. Select "a" or "an".'
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
+Requires: perl-Lingua-EN-Inflect-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -28,18 +29,28 @@ Requires: perl-Lingua-EN-Inflect = %{version}-%{release}
 dev components for the perl-Lingua-EN-Inflect package.
 
 
+%package perl
+Summary: perl components for the perl-Lingua-EN-Inflect package.
+Group: Default
+Requires: perl-Lingua-EN-Inflect = %{version}-%{release}
+
+%description perl
+perl components for the perl-Lingua-EN-Inflect package.
+
+
 %prep
 %setup -q -n Lingua-EN-Inflect-1.904
-cd ..
-%setup -q -T -D -n Lingua-EN-Inflect-1.904 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/liblingua-en-inflect-perl_1.903-1.debian.tar.xz
+cd %{_builddir}/Lingua-EN-Inflect-1.904
 mkdir -p deblicense/
-cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Lingua-EN-Inflect-1.904/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Lingua-EN-Inflect-1.904/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -49,7 +60,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -69,8 +80,11 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Lingua/EN/Inflect.pm
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Lingua::EN::Inflect.3
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Lingua/EN/Inflect.pm
